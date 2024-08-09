@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::post('login', [LoginController::class, 'autenticar'])->name('autenticar')
 
 Route::middleware(["autenticacao:examinador"])->group(function() {
     Route::get('dashboard/examinador/', [UsuarioController::class, 'examinador'])->name('dashboard.examinador');
+    Route::get('dashboard/examinador/createTarefa', [TarefaController::class, 'create'])->name('dashboard.examinador.create');
+    Route::post('dashboard/examinador/storeTarefa', [TarefaController::class, 'store'])->name('dashboard.examinador.store');
 });
 
 Route::middleware(["autenticacao:usuario"])->group(function() {

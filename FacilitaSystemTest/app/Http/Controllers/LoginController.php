@@ -126,7 +126,7 @@ class LoginController extends Controller
             $examinador->save();
         }
 
-        
+                                                                                                                                                        
 
         return redirect()->route('login');
     }

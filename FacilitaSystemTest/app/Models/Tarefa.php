@@ -12,7 +12,7 @@ class Tarefa extends Model
 
 
 
-    protected $table = 'logins';
+    protected $table = 'tarefas';
     protected $primarykey = 'id';
     protected $fillable = ['nomeTarefa','descricaoTarefa','entregaTarefa','vencimentoTarefa','vencimentoTarefa','prioridadeTarefa','statusTarefa'];
 

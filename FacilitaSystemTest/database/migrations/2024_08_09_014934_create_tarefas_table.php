@@ -17,7 +17,7 @@ class CreateTarefasTable extends Migration
             $table->id();
             $table->string('nomeTarefa', 50);
             $table->string('descricaoTarefa', 50);
-            $table->date('entregaTarefa');
+            $table->date('entregaTarefa')->nullable();
             $table->date('vencimentoTarefa');
             $table->enum('prioridadeTarefa', ['alta','média','baixa'])->default('baixa');
             $table->enum('statusTarefa',['concluída','em progresso','incompleta'])->default('em progresso');

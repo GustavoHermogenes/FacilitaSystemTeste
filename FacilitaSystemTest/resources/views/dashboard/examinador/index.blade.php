@@ -4,6 +4,10 @@
 @section('title', 'Examinador')
 @section('conteudo')
 
-<h1>Examinador</h1>
+<section>
+
+    <a href="{{ route('dashboard.examinador.create') }}">Adicionar</a>
+
+</section>
 
 @endsection
