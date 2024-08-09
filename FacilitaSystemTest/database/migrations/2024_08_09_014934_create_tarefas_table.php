@@ -15,8 +15,14 @@ class CreateTarefasTable extends Migration
     {
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
+            $table->string('nomeTarefa', 50);
+            $table->string('descricaoTarefa', 50);
+            $table->date('entregaTarefa');
+            $table->date('vencimentoTarefa');
+            $table->enum('prioridadeTarefa', ['alta','média','baixa'])->default('baixa');
+            $table->enum('statusTarefa',['concluída','em progresso','incompleta'])->default('em progresso');
             $table->timestamps();
-        });
+         });
     }
 
     /**

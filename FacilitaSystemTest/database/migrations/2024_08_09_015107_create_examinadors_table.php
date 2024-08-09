@@ -15,6 +15,10 @@ class CreateExaminadorsTable extends Migration
     {
         Schema::create('examinadors', function (Blueprint $table) {
             $table->id();
+            $table->string('nomeExaminador', 50);
+            $table->string('sobrenomeExaminador', 50);
+            $table->string('emailExaminador', 255);
+            $table->enum('statusExaminador',['ativo', 'inativo']);
             $table->timestamps();
         });
     }

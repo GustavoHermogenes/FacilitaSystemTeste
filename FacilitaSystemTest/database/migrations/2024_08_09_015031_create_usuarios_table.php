@@ -15,8 +15,12 @@ class CreateUsuariosTable extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
+            $table->string('nomeUsuario', 50);
+            $table->string('sobrenomeUsuario', 50);
+            $table->string('emailUsuario', 255);
+            $table->enum('statusUsuario',['ativo', 'inativo']);
             $table->timestamps();
-        });
+       });
     }
 
     /**

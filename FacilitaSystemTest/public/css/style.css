@@ -1,0 +1,10 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.index{
+    background-color: gainsboro;
+    width: 50%;
+    height: 70vh;
+}

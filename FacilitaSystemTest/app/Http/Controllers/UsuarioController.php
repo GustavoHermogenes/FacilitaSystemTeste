@@ -7,14 +7,24 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+
+
+
+
+    public function usuario()
+    {
+        return view('dashboard.usuario.index');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function examinador()
     {
-        //
+        return view('dashboard.examinador.index');
     }
 
     /**
