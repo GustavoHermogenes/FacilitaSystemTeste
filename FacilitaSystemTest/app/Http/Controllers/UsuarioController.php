@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
 use App\Models\Usuario;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -14,7 +15,29 @@ class UsuarioController extends Controller
 
     public function usuario()
     {
-        return view('dashboard.usuario.index');
+        $id = session('id');
+        $usuario = Usuario::where('id', $id)->first();
+        $tarefas = Tarefa::where('idUsuario', $id)->get();
+
+        foreach ($tarefas as $item) {
+            $hoje = Carbon::now();
+            $vencimento = Carbon::parse($item->vencimentoTarefa);
+    
+            if ($vencimento->diffInDays($hoje, false) > 0) {
+                $item->statusCor = 'red';
+                $item->entregaTarefa = 'Atraso';
+            } elseif ($vencimento->diffInDays($hoje, false) >= -3) {
+                $item->statusCor = 'orange';
+                $item->entregaTarefa = 'Três dias ou menos para conclusão';
+            } else {
+                $item->statusCor = 'green';
+                $item->entregaTarefa = 'No prazo';
+            }
+        }
+
+        // dd($tarefas);
+
+        return view('dashboard.usuario.index', compact('tarefas'));
     }
 
 

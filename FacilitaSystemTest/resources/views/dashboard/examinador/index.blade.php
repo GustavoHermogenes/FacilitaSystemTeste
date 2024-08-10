@@ -15,6 +15,8 @@
             <table>
                 <thead>
                     <tr>
+
+                        <th>Entrega:</th>
                         <th>Nome:</th>
                         <th>Usuário designado:</th>
                         <th>Descrição:</th>
@@ -27,6 +29,20 @@
 
                 <tbody>
                     @foreach ($tarefas as $item)
+                        @php
+                            if ($item->entregaTarefa == null) {
+                                $item->entregaTarefa = 'Ainda não foi entregue';
+                            } elseif ($item->entregaTarefa > $item->vencimentoTarefa) {
+                                $item->entregaTarefa= 'Entregue com atraso';
+                            }else{
+                                $item->entregaTarefa = 'Entregue no tempo correto';
+                            }
+
+                        @endphp
+
+                        <tr>
+                            <td>{{ ucfirst($item->entregaTarefa) }}</td>
+                        </tr>
                         <tr>
                             <td>{{ ucfirst($item->nomeTarefa) }}</td>
                         </tr>
@@ -43,18 +59,9 @@
                             <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y') }}</td>
                         </tr>
 
-                        @php
-                            if ($item->entregaTarefa == null) {
-                                $item->entregaTarefa = 'Ainda não foi entregue';
-                            }
-                        @endphp
 
                         <tr>
                             <td>{{ ucfirst($item->statusTarefa) }}</td>
-                        </tr>
-
-                        <tr>
-                            <td>{{ ucfirst($item->entregaTarefa) }}</td>
                         </tr>
                         <tr>
                             <a href="{{ route('edit.tarefa', ['id' => $item->id]) }}">Editar</a>
