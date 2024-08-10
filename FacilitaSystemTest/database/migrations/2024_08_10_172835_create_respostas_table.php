@@ -13,15 +13,15 @@ class CreateRespostasTable extends Migration
      */
     public function up()
     {
-            Schema::create('respostas', function (Blueprint $table) {
-                $table->id();
-                $table->string('nomeResposta');
-                $table->string('descricaoResposta');
-                $table->foreignId('idUsuario')->constrained('usuarios');
-                $table->foreignId('idTarefa')->constrained('tarefas');
-                $table->timestamp('entregaResposta');
-                $table->timestamps();
-            });
+        Schema::create('respostas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nomeResposta', '100');
+            $table->string('descricaoResposta', 255);
+            $table->foreignId('idUsuario')->constrained('usuarios');
+            $table->foreignId('idTarefa')->constrained('tarefas');
+            $table->timestamp('entregaResposta');
+            $table->timestamps();
+        });
     }
 
     /**

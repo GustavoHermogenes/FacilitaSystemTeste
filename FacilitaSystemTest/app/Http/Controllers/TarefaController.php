@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resposta;
 use App\Models\Tarefa;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -33,7 +34,6 @@ class TarefaController extends Controller
         $usuarios = Usuario::where('statusUsuario', 'ativo')->get();
 
         return view('dashboard.examinador.createTarefa', compact('usuarios'));
-
     }
 
     /**
@@ -71,18 +71,18 @@ class TarefaController extends Controller
         ]);
 
 
-            $tarefa = New Tarefa();
-            $tarefa->nomeTarefa = $request->input('nomeTarefa');
-            $tarefa->idUsuario = $request->input('idUsuario');
-            $tarefa->descricaoTarefa = $request->input('descricaoTarefa');
-            $tarefa->entregaTarefa = null;
-            $tarefa->vencimentoTarefa = $request->input('vencimentoTarefa');
-            $tarefa->prioridadeTarefa = $request->input('prioridadeTarefa');
-            $tarefa->statusTarefa = 'em progresso';
-            $tarefa->save();
+        $tarefa = new Tarefa();
+        $tarefa->nomeTarefa = $request->input('nomeTarefa');
+        $tarefa->idUsuario = $request->input('idUsuario');
+        $tarefa->descricaoTarefa = $request->input('descricaoTarefa');
+        $tarefa->entregaTarefa = null;
+        $tarefa->vencimentoTarefa = $request->input('vencimentoTarefa');
+        $tarefa->prioridadeTarefa = $request->input('prioridadeTarefa');
+        $tarefa->statusTarefa = 'em progresso';
+        $tarefa->save();
 
-            return redirect()->route('dashboard.examinador');
-        }
+        return redirect()->route('dashboard.examinador');
+    }
 
     /**
      * Display the specified resource.
@@ -105,7 +105,7 @@ class TarefaController extends Controller
     {
         $tarefa = Tarefa::find($id);
 
-        if(!$tarefa){
+        if (!$tarefa) {
             abort('404', 'A tarefa não foi encontrada');
         }
         // dd($tarefa);
@@ -125,8 +125,8 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa, $id)
     {
-        $tarefa = $tarefa::find($id); 
-        if(!$tarefa){
+        $tarefa = $tarefa::find($id);
+        if (!$tarefa) {
             abort('404', 'A tarefa não existe');
         }
 
@@ -169,7 +169,6 @@ class TarefaController extends Controller
         // dd($tarefa);
 
         return redirect()->route('dashboard.examinador');
-
     }
 
     /**
@@ -182,13 +181,54 @@ class TarefaController extends Controller
     {
         $tarefa = $tarefa::find($id);
 
-        if(!$tarefa){
+        if (!$tarefa) {
             abort('404', 'Impossível prosseguir o usuários não existe');
         }
 
         $tarefa->delete();
 
         return redirect()->route('dashboard.examinador');
+    }
 
+
+    public function resposta($id){
+        $tarefa = Tarefa::find($id);
+
+        return view('dashboard.usuario.resposta', compact('tarefa'));
+    }
+
+    public function respostaStore(Request $request, $id)
+    {
+
+        $idUsuario = session('id');
+        $tarefa = Tarefa::find($id);
+
+        $request->validate([
+            'nomeResposta' => 'required|string|max:100',
+            'descricaoResposta' => 'required|string|max:255'
+        ], [
+            'nomeResposta.required' => 'O campo de título precisa ser preenchido obrigatoriamente.',
+            'nomeResposta.string' => 'O campo de título deve ser uma string.',
+            'nomeResposta.max' => 'O campo de título não pode exceder 100 caracteres.',
+
+            'descricaoResposta.required' => 'O campo de resposta precisa ser preenchido obrigatoriamente.',
+            'descricaoResposta.string' => 'o campo de resposta deve ser uma string.',
+            'descricaoResposta.max' => 'o campo de resposta não pode exceder 255 caracteres.'
+        ]);
+
+        $resposta = new Resposta();
+        $resposta->nomeResposta = $request->input('nomeResposta');
+        $resposta->descricaoResposta = $request->input('descricaoResposta');
+        $resposta->idUsuario = $idUsuario;
+        $resposta->idTarefa = $id;
+        $resposta->entregaResposta = now();
+        $resposta->save();
+
+        $tarefa->update([
+            $tarefa->entregaTarefa = now(),
+            $tarefa->statusTarefa = 'concluída'
+        ]);
+
+        return redirect()->route('dashboard.usuario');
     }
 }

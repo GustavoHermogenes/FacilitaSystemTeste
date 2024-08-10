@@ -46,7 +46,7 @@
                             <td>{{ ucfirst($item->statusTarefa) }}</td>
                         </tr>
                         <tr>
-                            <a href="{{ route('edit.tarefa', ['id' => $item->id]) }}">Editar</a>
+                            <a href="{{ route('resposta.tarefa', ['id' => $item->id]) }}">Responder</a>
                         </tr>
                     @endforeach
                 </tbody>

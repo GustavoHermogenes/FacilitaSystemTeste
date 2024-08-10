@@ -31,5 +31,8 @@ Route::middleware(["autenticacao:examinador"])->group(function() {
 
 Route::middleware(["autenticacao:usuario"])->group(function() {
     Route::get('dashboard/usuario', [UsuarioController::class, 'usuario'])->name('dashboard.usuario');
+    Route::get('dashboard/usuario/{id}/resposta', [TarefaController::class, 'resposta'])->name('resposta.tarefa');
+    Route::post('dashboard/usuario/{id}/respostaStore', [TarefaController::class, 'respostaStore'])->name('resposta.store');
+
 });
 
