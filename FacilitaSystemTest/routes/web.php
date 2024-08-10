@@ -23,6 +23,10 @@ Route::middleware(["autenticacao:examinador"])->group(function() {
     Route::get('dashboard/examinador/', [UsuarioController::class, 'examinador'])->name('dashboard.examinador');
     Route::get('dashboard/examinador/createTarefa', [TarefaController::class, 'create'])->name('dashboard.examinador.create');
     Route::post('dashboard/examinador/storeTarefa', [TarefaController::class, 'store'])->name('dashboard.examinador.store');
+    Route::get('dashboard/examinador/{id}/editTarefa', [TarefaController::class, 'edit'])->name('edit.tarefa');
+    Route::put('dashboard/examinador/{id}/updateTarefa', [TarefaController::class, 'update'])->name('update.tarefa');
+    Route::put('dashboard/examinador/{id}/deletarTarefa', [TarefaController::class, 'destroy'])->name('destroy.tarefa');
+    Route::put('dashboard/examinador/{id}/updateStatus', [UsuarioController::class, 'updateStatus'])->name('update.status');
 });
 
 Route::middleware(["autenticacao:usuario"])->group(function() {

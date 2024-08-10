@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tarefa;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,25 @@ class UsuarioController extends Controller
     }
 
 
+    public function updateStatus($id){
+
+        $usuario = Usuario::find($id);
+
+        if($usuario->statusUsuario === 'ativo'){
+            $usuario->update([
+                $usuario->statusUsuario = 'inativo'
+            ]);
+        } else{
+            $usuario->update([
+                $usuario->statusUsuario = 'ativo'
+            ]);
+        }
+
+        return redirect()->route('dashboard.examinador');
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +44,14 @@ class UsuarioController extends Controller
      */
     public function examinador()
     {
-        return view('dashboard.examinador.index');
+
+        $tarefas = Tarefa::where('statusTarefa', 'em progresso')->get();
+        $usuarios = Usuario::all();
+
+        return view('dashboard.examinador.index', compact('tarefas', 'usuarios'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
