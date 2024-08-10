@@ -14,11 +14,6 @@ class LoginController extends Controller
         return view('index');
     }
 
-    public function login()
-    {
-        return view('login');
-    }
-
     public function autenticar(Request $request)
     {
         $request->validate([
@@ -73,11 +68,6 @@ class LoginController extends Controller
         }
     }
 
-    public function cadastrar()
-    {
-        return view('cadastrar');
-    }
-
     public function registro(Request $request)
     {
         $request->validate([
@@ -117,6 +107,8 @@ class LoginController extends Controller
             $usuario->emailUsuario = $request->input('email');
             $usuario->statusUsuario = 'ativo';
             $usuario->save();
+
+            return redirect()->route('dashboard.usuario');
         } elseif ($request->input('tipo_usuario') === 'examinador') {
             $examinador = new Examinador();
             $examinador->nomeExaminador = $request->input('nome');
@@ -124,10 +116,9 @@ class LoginController extends Controller
             $examinador->emailExaminador = $request->input('email');
             $examinador->statusExaminador = 'ativo';
             $examinador->save();
+
+            return redirect()->route('dashboard.examinador');
+
         }
-
-                                                                                                                                                        
-
-        return redirect()->route('login');
     }
 }

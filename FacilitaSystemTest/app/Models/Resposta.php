@@ -14,4 +14,10 @@ class Resposta extends Model
     protected $primarykey = 'id';
     protected $fillable = ['nomeResposta','descricaoResposta','idUsuario','idTarefa','entregaResposta'];
 
+    
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'idUsuario');
+    }
+
 }

@@ -17,7 +17,7 @@ class UsuarioController extends Controller
     {
         $id = session('id');
         $usuario = Usuario::where('id', $id)->first();
-        $tarefas = Tarefa::where('idUsuario', $id)->get();
+        $tarefas = Tarefa::where('idUsuario', $id)->where('statusTarefa', 'em progresso')->get();
 
         foreach ($tarefas as $item) {
             $hoje = Carbon::now();

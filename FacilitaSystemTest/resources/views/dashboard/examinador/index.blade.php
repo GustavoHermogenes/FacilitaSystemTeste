@@ -6,76 +6,64 @@
 
     <section>
 
-        <a href="{{ route('dashboard.examinador.create') }}">Adicionar</a>
-
+        <div></div>
+        
         <div>
 
             <h3>Atividade</h3>
 
-            <table>
-                <thead>
-                    <tr>
 
-                        <th>Entrega:</th>
-                        <th>Nome:</th>
-                        <th>Usuário designado:</th>
-                        <th>Descrição:</th>
-                        <th>Prioridade:</th>
-                        <th>Vencimento:</th>
-                        <th>Status:</th>
-                        <th>Editar:</th>
+            <table class="table table-hover" style="width: 80%; margin: 20px auto">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Entrega</th>
+                        <th>Nome</th>
+                        <th>Usuário designado</th>
+                        <th>Descrição</th>
+                        <th>Prioridade</th>
+                        <th>Vencimento</th>
+                        <th>Status</th>
+                        <th>Editar</th>
+                        <th>Deletar</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    @foreach ($tarefas as $item)
-                        @php
-                            if ($item->entregaTarefa == null) {
-                                $item->entregaTarefa = 'Ainda não foi entregue';
-                            } elseif ($item->entregaTarefa > $item->vencimentoTarefa) {
-                                $item->entregaTarefa= 'Entregue com atraso';
-                            }else{
-                                $item->entregaTarefa = 'Entregue no tempo correto';
-                            }
+                    <tr>
+                        @foreach ($tarefas as $item)
+                            @php
+                                if ($item->entregaTarefa == null) {
+                                    $item->statusCor = 'orange';
+                                    $item->entregaTarefa = 'Ainda não foi entregue';
+                                } elseif ($item->entregaTarefa > $item->vencimentoTarefa) {
+                                    $item->statusCor = 'red';
+                                    $item->entregaTarefa = 'Entregue com atraso';
+                                } else {
+                                    $item->statusCor = 'green';
+                                    $item->entregaTarefa = 'Entregue no tempo correto';
+                                }
 
-                        @endphp
-
-                        <tr>
-                            <td>{{ ucfirst($item->entregaTarefa) }}</td>
-                        </tr>
-                        <tr>
+                            @endphp
+                            <th scope="row" style="color:{{ $item->statusCor }} ">{{ ucfirst($item->entregaTarefa) }}</th>
                             <td>{{ ucfirst($item->nomeTarefa) }}</td>
-                        </tr>
-                        <tr>
                             <td>{{ ucfirst($item->usuario->nomeUsuario) }}</td>
-                        </tr>
-                        <tr>
                             <td>{{ ucfirst($item->descricaoTarefa) }}</td>
-                        </tr>
-                        <tr>
                             <td>{{ ucfirst($item->prioridadeTarefa) }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y') }}</td>
-                        </tr>
-
-
-                        <tr>
                             <td>{{ ucfirst($item->statusTarefa) }}</td>
-                        </tr>
-                        <tr>
-                            <a href="{{ route('edit.tarefa', ['id' => $item->id]) }}">Editar</a>
-                        </tr>
-                        <form action="{{ route('destroy.tarefa', ['id' => $item->id]) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <tr>
-                                <button>Deletar</button>
-                            </tr>
-                        </form>
-                    @endforeach
+                            <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y') }}</td>
+                            <td><a href="{{ route('edit.tarefa', ['id' => $item->id]) }}">Editar</a></td>
+                            <td>
+                                <form action="{{ route('destroy.tarefa', ['id' => $item->id]) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button>Deletar</button>
+                                </form>
+                            </td>
+                        @endforeach
+                    </tr>
                 </tbody>
             </table>
+
+
         </div>
 
         <div>

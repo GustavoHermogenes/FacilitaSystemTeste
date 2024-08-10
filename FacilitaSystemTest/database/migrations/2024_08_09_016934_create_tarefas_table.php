@@ -21,7 +21,7 @@ class CreateTarefasTable extends Migration
             $table->string('vencimentoTarefa');
             $table->foreignId('idUsuario')->constrained('usuarios');
             $table->enum('prioridadeTarefa', ['alta','média','baixa'])->default('baixa');
-            $table->enum('statusTarefa',['concluída','em progresso','incompleta'])->default('em progresso');
+            $table->enum('statusTarefa',['concluída','em progresso'])->default('em progresso');
             $table->timestamps();
          });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Resposta;
 use App\Models\Tarefa;
 use App\Models\Usuario;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -82,6 +83,35 @@ class TarefaController extends Controller
         $tarefa->save();
 
         return redirect()->route('dashboard.examinador');
+    }
+
+    public function respondidosExaminador(){
+
+        $respondidos = Tarefa::where('statusTarefa', 'concluída')->get();
+
+        // dd($respondidos);
+        foreach ($respondidos as $item) {
+            $respostas = Resposta::where('idTarefa', $item->id)->get();
+
+        }
+
+        foreach ($respondidos as $item) {
+            $hoje = Carbon::now();
+            $vencimento = Carbon::parse($item->vencimentoTarefa);
+    
+            if ($vencimento->diffInDays($hoje, false) > 0) {
+                $item->statusCor = 'red';
+            } elseif ($vencimento->diffInDays($hoje, false) >= -3) {
+                $item->statusCor = 'orange';
+            } else {
+                $item->statusCor = 'green';
+            }
+        }
+
+
+        // dd($respostas);
+
+        return view('dashboard.examinador.respondidos', compact('respondidos', 'respostas'));
     }
 
     /**
@@ -230,5 +260,31 @@ class TarefaController extends Controller
         ]);
 
         return redirect()->route('dashboard.usuario');
+    }
+
+    public function respondidos(){
+
+        $respondidos = Tarefa::where('statusTarefa', 'concluída')->get();
+
+        // dd($respondidos);
+        foreach ($respondidos as $item) {
+            $respostas = Resposta::where('idTarefa', $item->id)->get();
+            
+            $hoje = Carbon::now();
+            $vencimento = Carbon::parse($item->vencimentoTarefa);
+    
+            if ($vencimento->diffInDays($hoje, false) > 0) {
+                $item->statusCor = 'red';
+            } elseif ($vencimento->diffInDays($hoje, false) >= -3) {
+                $item->statusCor = 'orange';
+            } else {
+                $item->statusCor = 'green';
+            }
+        }
+
+
+        // dd($respostas);
+
+        return view('dashboard.usuario.respondidos', compact('respondidos', 'respostas'));
     }
 }
