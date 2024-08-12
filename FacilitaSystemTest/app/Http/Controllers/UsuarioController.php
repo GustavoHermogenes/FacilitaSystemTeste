@@ -22,7 +22,7 @@ class UsuarioController extends Controller
         foreach ($tarefas as $item) {
             $hoje = Carbon::now();
             $vencimento = Carbon::parse($item->vencimentoTarefa);
-    
+
             if ($vencimento->diffInDays($hoje, false) > 0) {
                 $item->statusCor = 'red';
                 $item->entregaTarefa = 'Atraso';

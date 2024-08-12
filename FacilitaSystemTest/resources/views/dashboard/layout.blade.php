@@ -15,8 +15,20 @@
 
 
 <body>
-
-@yield('conteudo')
+<header>
+    <section class="navBar">
+        <div>
+            <h3>Seja bem vindo(a) {{ ucfirst(session('nome')) . ' ' . ucfirst(session('sobrenome')) }}!</h3>
+            <h5>{{ ucfirst(session('cargo')) }}</h5>    
+        </div>
+        <div>
+            <a href="{{ route('index') }}">Sair</a>
+        </div>
+    </section>
+</header>
+<body>
+    @yield('conteudo')    
+</body>
 
 
 </body>

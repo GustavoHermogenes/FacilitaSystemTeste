@@ -52,6 +52,7 @@ class LoginController extends Controller
                 'nome' => $usuario->nomeUsuario,
                 'sobrenome' => $usuario->sobrenomeUsuario,
                 'email' => $usuario->emailUsuario,
+                'cargo' => $tipoUsuario,
             ]);
             return redirect()->route('dashboard.usuario');
 
@@ -63,6 +64,7 @@ class LoginController extends Controller
                 'nome' => $examinador->nomeExaminador,
                 'sobrenome' => $examinador->sobrenomeExaminador,
                 'email' => $examinador->emailExaminador,
+                'cargo' => $tipoUsuario,
             ]);
             return redirect()->route('dashboard.examinador');
         }

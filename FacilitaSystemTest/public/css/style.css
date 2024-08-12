@@ -3,8 +3,103 @@ body{
     padding: 0;
 }
 
-.index{
-    background-color: gainsboro;
-    width: 50%;
-    height: 70vh;
+.navBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background: linear-gradient(125deg, #191970,#191970,#1e90ff, #191970, #191970, #1e90ff);
+    color: gainsboro;
+}
+.navBar div{
+    margin: 20px;
+}
+
+.navBar h3{
+    margin: 0px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.navBar h5{
+    margin-top: 5px;
+    font-size: 15px;
+    color: #979797;
+}
+
+.navBar a{
+    text-decoration: none;
+    background-color: #1e90ff;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: solid 2px gainsboro;
+    color: white;
+    font-weight: bold;
+}
+
+.botaoLateral :nth-child(1){
+    margin:0 10% 20px 15px;
+}
+
+ .botaoLateral div a {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(to right, #1e90ff, #1e90ff,#1e90ff, #191970, #191970);
+    background-size: 200%;
+
+    background-position: left;
+    padding: 10px;
+    border-radius: 15px;
+    border: solid 2px black;
+    transition: background-position 0.4s ease-in-out;
+}
+
+.botaoLateral div a:hover {
+    background-position: right;
+}
+.tabelaAtv{
+    text-align: center;
+}
+
+.tabelaAtv tbody button{
+    color: white;
+    padding: 4px 8px;
+    background-color: #1e90ff;
+    border-radius: 10px;
+}
+
+.tabelaAtv h3{
+    font-weight: bold;
+    font-size: 2.5em;
+    margin: 35px;
+}
+
+.tabelaAtv tbody button:hover{
+    transition: ease-in-out .3s;
+    background-color: #191970;
+}
+
+
+
+.entrega::before {
+    vertical-align: middle;
+    content: '';
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: aquamarine
+}
+
+
+.status-orange::before {
+    background-color: orange;
+}
+
+.status-red::before {
+    background-color: red;
+}
+
+.status-green::before {
+    background-color: green;
 }

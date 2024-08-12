@@ -1,56 +1,52 @@
 @extends('dashboard.layout')
 
 
-@section('title', 'Examinador - Tarefas respondidas')
+@section('title', 'Examinador')
 @section('conteudo')
 
     <section>
 
-        <a href="{{ route('dashboard.examinador') }}">Em progresso</a>
+        <div class="tabelaAtv">
 
-        <div>
+            <h3>Atividades respondidas</h3>
 
-            <h3>Atividades Respondidas</h3>
+            <div class="d-flex flex-row-reverse bd-highlight botaoLateral">
+                <div><a href="{{ route('dashboard.examinador') }}">Outros</a></div>
+            </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome:</th>
-                        <th>Descrição:</th>
-                        <th>Resposta:</th>
-                        <th>Prioridade:</th>
-                        <th>Entregue:</th>
-                        <th>Vencimento:</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach ($respondidos as $item)
+                <table class="table table-hover" style="width: 80%; margin: 20px auto">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>{{ ucfirst($item->nomeTarefa) }}</td>
+                            <th>Nome:</th>
+                            <th>Usuário designado</th>
+                            <th>Descrição:</th>
+                            <th>Resposta:</th>
+                            <th>Prioridade:</th>
+                            <th>Entregue:</th>
+                            <th>Vencimento:</th>
                         </tr>
-                        <tr>
-                            <td>{{ ucfirst($item->descricaoTarefa) }}</td>
-                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($respondidos as $item)
+                            <tr>
 
-                        @foreach ($respostas as $resposta)
-                            <tr>
-                                <td>{{ ucfirst($resposta->descricaoResposta) }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ ucfirst($resposta->usuario->nomeUsuario) . ' ' . ucfirst($resposta->usuario->sobrenomeUsuario) }}</td>
+                                <td>{{ ucfirst($item->nomeTarefa) }}</td>
+                                <td>{{ ucfirst($item->usuario->nomeUsuario) . ' ' . ucfirst($item->usuario->sobrenomeUsuario) }}
+                                </td>
+                                <td>{{ ucfirst($item->descricaoTarefa) }}</td>
+                                @foreach ($respostas as $resposta)
+                                    <td>{{ ucfirst($resposta->descricaoResposta) }}</td>
+                                @endforeach
+                                <td>{{ ucfirst($item->prioridadeTarefa) }}</td>
+                                <td style="color:{{ $item->statusCor }};  font-weight: bold;">
+                                    {{ \Carbon\Carbon::parse($item->entregaTarefa)->format('d/m/Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y') }}</td>
+
                             </tr>
                         @endforeach
-                        <tr>
-                            <td>{{ ucfirst($item->prioridadeTarefa) }}</td>
-                        </tr>
-                        <tr style="color:{{ $item->statusCor }}">
-                            <td>{{ \Carbon\Carbon::parse($item->entregaTarefa)->format('d/m/Y') }}</td>
-                        </tr>
-                        </tr>
-                        <tr>
-                            <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y') }}</td>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+
+
+        @endsection
