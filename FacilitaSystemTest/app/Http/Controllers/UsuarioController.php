@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Login;
 use App\Models\Tarefa;
 use App\Models\Usuario;
 use Carbon\Carbon;
@@ -44,14 +45,21 @@ class UsuarioController extends Controller
     public function updateStatus($id){
 
         $usuario = Usuario::find($id);
+        $login = Login::where('email',$usuario->nomeUsuario);
 
         if($usuario->statusUsuario === 'ativo'){
             $usuario->update([
                 $usuario->statusUsuario = 'inativo'
             ]);
+            $login->update([
+                $usuario->status = 'inativo'
+            ]);
         } else{
             $usuario->update([
                 $usuario->statusUsuario = 'ativo'
+            ]);
+            $login->update([
+                $usuario->status = 'ativo'
             ]);
         }
 
@@ -68,7 +76,7 @@ class UsuarioController extends Controller
     public function examinador()
     {
 
-        $tarefas = Tarefa::where('statusTarefa', 'em progresso')->get();
+        $tarefas = Tarefa::where('statusTarefa', 'em progresso')->orderBy('vencimentoTarefa','asc')->get();
         $usuarios = Usuario::all();
 
         return view('dashboard.examinador.index', compact('tarefas', 'usuarios'));

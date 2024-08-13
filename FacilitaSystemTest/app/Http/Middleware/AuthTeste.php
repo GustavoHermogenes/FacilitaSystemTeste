@@ -16,7 +16,7 @@ class AuthTeste
             $usuario = Login::where('email', $email)->first();
 
             if (!$usuario) {
-                return redirect()->route('login');
+                return redirect()->route('index');
             }
 
             $tipoUsuario = $usuario->tipo_usuario;
@@ -28,6 +28,6 @@ class AuthTeste
             }
         }
 
-        return redirect()->route('login');
+        return redirect()->route('index');
     }
 }

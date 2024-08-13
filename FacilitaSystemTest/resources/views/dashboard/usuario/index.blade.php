@@ -6,14 +6,16 @@
 
     <section>
 
-        <a href="{{ route('respondidos.examinador') }}">Respondidos</a>
-
-        <div>
+        <div class="tabelaAtv">
 
             <h3>Atividades</h3>
 
-            <table>
-                <thead>
+            <div class="d-flex flex-row-reverse bd-highlight botaoLateral">
+                <div><a href="{{ route('respondidos.usuario') }}">Respondidas</a></div>
+            </div>
+
+            <table class="table table-hover" style="width: 80%; margin: 20px auto">
+                <thead class="thead-dark">
                     <tr>
                         <th>Entregue:</th>
                         <th>Nome:</th>
@@ -24,32 +26,59 @@
                         <th>Editar:</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     @foreach ($tarefas as $item)
-                        <tr style="color:{{ $item->statusCor }}">
-                            <td >{{ $item->entregaTarefa }}</td>
-                        </tr>
                         <tr>
+                            @php
+                                if ($item->entregaTarefa == null) {
+                                    $item->statusCor = 'orange';
+                                    $item->entregaTarefa = 'Pendente';
+                                } elseif ($item->entregaTarefa > $item->vencimentoTarefa) {
+                                    $item->statusCor = 'red';
+                                    $item->entregaTarefa = 'Entregue com atraso';
+                                } else {
+                                    $item->statusCor = 'green';
+                                    $item->entregaTarefa = 'Entregue no tempo correto';
+                                }
+                            @endphp
+
+                            <td class="entrega status-{{ $item->statusCor }}">{{ ucfirst($item->entregaTarefa) }}</td>
                             <td>{{ ucfirst($item->nomeTarefa) }}</td>
-                        </tr>
-                        <tr>
                             <td>{{ ucfirst($item->descricaoTarefa) }}</td>
-                        </tr>
-                        <tr>
                             <td>{{ ucfirst($item->prioridadeTarefa) }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y') }}</td>
-                        </tr>
-                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y H:i') }}</td>
                             <td>{{ ucfirst($item->statusTarefa) }}</td>
-                        </tr>                        
-                        <tr>
-                            <a href="{{ route('resposta.tarefa', ['id' => $item->id]) }}">Responder</a>
+                            <td>
+                                <form action="{{ route('resposta.tarefa', ['id' => $item->id]) }}" method="GET">
+                                    @csrf
+                                    <button>Editar</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
 
+
+        @foreach ($tarefas as $item)
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
+        </div>
+
+    @endsection

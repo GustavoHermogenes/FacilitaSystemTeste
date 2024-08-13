@@ -103,3 +103,69 @@ body{
 .status-green::before {
     background-color: green;
 }
+
+
+
+
+
+.resposta{
+    background: linear-gradient(125deg, #191970,#191970,#1e90ff, #191970, #191970, #1e90ff);
+}
+
+.formulario input, .formulario textarea, .formulario select{
+    border: solid 2px #1e90ff;
+}
+
+
+
+.input-selecionar, .input-vencimento{
+	width: 300px;
+}
+
+.input-selecionar select, .input-vencimento input{
+	width: 100%;
+	background: transparent;
+	top: calc(100% + .5rem);
+	padding: 1rem;
+	box-sizing: border-box;
+	border-radius: 10px;
+	height: 60px;
+	overflow-y: auto;
+}
+.input-selecionar select:focus, .formulario textarea:focus, .input-vencimento input:focus{
+    border: solid 2px #1e90ff;
+
+}
+
+
+
+.botao-formulario button, .botao-formulario input{
+        text-decoration: none;
+        color: white;
+        background: linear-gradient(to right, #1e90ff, #1e90ff,#1e90ff, #191970, #191970);
+        background-size: 200%;
+        background-position: left;
+        padding: 10px 20px;
+        border-radius: 15px;
+        border: solid 2px black;
+        transition: background-position 0.4s ease-in-out;
+    }
+
+.botao-formulario button:hover, .botao-formulario input:hover {
+        background-position: right;
+    }
+
+
+
+
+.arrow{
+    margin:20px 10% 20px 0;
+    font-size: 25px;
+}
+
+.arrow a{
+    background-color: #191970;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50%;
+}

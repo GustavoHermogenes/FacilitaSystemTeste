@@ -34,7 +34,7 @@
                     @foreach ($tarefas as $item)
                         <tr>
                             @php
-                                if ($item->entregaTarefa == null) {
+                                if ($item->entregaTarefa === null) {
                                     $item->statusCor = 'orange';
                                     $item->entregaTarefa = 'Pendente';
                                 } elseif ($item->entregaTarefa > $item->vencimentoTarefa) {
@@ -51,7 +51,7 @@
                             <td>{{ ucfirst($item->usuario->nomeUsuario) }}</td>
                             <td>{{ ucfirst($item->descricaoTarefa) }}</td>
                             <td>{{ ucfirst($item->prioridadeTarefa) }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('d/m/Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->vencimentoTarefa)->format('H:i d/m/Y') }}</td>
                             <td>{{ ucfirst($item->statusTarefa) }}</td>
                             <td>
                                 <form action="{{ route('edit.tarefa', ['id' => $item->id]) }}" method="GET">
@@ -94,8 +94,8 @@
                         <tr>
                             <td>{{ ucfirst($item->id) }}</td>
                             <td>{{ ucfirst($item->nomeUsuario) . ' ' . ucfirst($item->sobrenomeUsuario) }}</td>
-                            <td>{{ ucfirst($item->statusUsuario) }}</td>
                             <td>{{ $item->emailUsuario }}</td>
+                            <td>{{ ucfirst($item->statusUsuario) }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
                             <td>
                                 <form action="{{ route('update.status', ['id' => $item->id]) }}" method="POST">

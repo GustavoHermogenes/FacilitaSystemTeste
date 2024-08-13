@@ -24,9 +24,12 @@
                 @csrf
                 <label for="chk" aria-hidden="true">Cadastrar-se</label>
                 <input type="text" name="nome" placeholder="Nome:">
+
                 <input type="text" name="sobrenome" placeholder="Sobrenome:">
                 <input type="email" name="email" placeholder="Email:">
+
                 <input type="password" name="senha" placeholder="Senha:">
+
                 <div class="radio">
                     <div>
                         <h5 for="examinador">Examinador:</h5>
@@ -36,10 +39,12 @@
                         <h5 for="usuario">Usuário:</h5>
                         <input type="radio" name="tipo_usuario" id="usuario" value="usuario">
                     </div>
-                </div>
+
                 @error('tipo_usuario')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+                </div>
                 <button>Criar</button>
             </form>
         </div>
@@ -51,10 +56,17 @@
                 <input type="email" name="email" placeholder="Email:">
                 <input type="password" name="senha" placeholder="Senha:">
                 <button type="submit">Entrar</button>
+                @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                @error('senha')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </form>
         </div>
-    </div>
 
+
+    </div>
 </body>
 
 </html>

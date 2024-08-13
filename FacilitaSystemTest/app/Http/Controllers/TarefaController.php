@@ -89,16 +89,12 @@ class TarefaController extends Controller
 
         $respondidos = Tarefa::where('statusTarefa', 'concluída')->get();
 
-        // dd($respondidos);
-        foreach ($respondidos as $item) {
-            $respostas = Resposta::where('idTarefa', $item->id)->get();
-
-        }
+        // dd($respondidos)
 
         foreach ($respondidos as $item) {
             $hoje = Carbon::now();
             $vencimento = Carbon::parse($item->vencimentoTarefa);
-    
+
             if ($vencimento->diffInDays($hoje, false) > 0) {
                 $item->statusCor = 'red';
             } elseif ($vencimento->diffInDays($hoje, false) >= -3) {
@@ -107,11 +103,7 @@ class TarefaController extends Controller
                 $item->statusCor = 'green';
             }
         }
-
-
-        // dd($respostas);
-
-        return view('dashboard.examinador.respondidos', compact('respondidos', 'respostas'));
+        return view('dashboard.examinador.respondidos', compact('respondidos'));
     }
 
     /**
@@ -141,7 +133,6 @@ class TarefaController extends Controller
         // dd($tarefa);
 
         $usuarios = Usuario::where('statusUsuario', 'ativo')->get();
-
 
         return view('dashboard.examinador.editTarefa', compact('tarefa', 'usuarios'));
     }
@@ -264,15 +255,13 @@ class TarefaController extends Controller
 
     public function respondidos(){
 
-        $respondidos = Tarefa::where('statusTarefa', 'concluída')->get();
+        $respondidos = Resposta::all();
 
         // dd($respondidos);
         foreach ($respondidos as $item) {
-            $respostas = Resposta::where('idTarefa', $item->id)->get();
-            
             $hoje = Carbon::now();
             $vencimento = Carbon::parse($item->vencimentoTarefa);
-    
+
             if ($vencimento->diffInDays($hoje, false) > 0) {
                 $item->statusCor = 'red';
             } elseif ($vencimento->diffInDays($hoje, false) >= -3) {
@@ -285,6 +274,6 @@ class TarefaController extends Controller
 
         // dd($respostas);
 
-        return view('dashboard.usuario.respondidos', compact('respondidos', 'respostas'));
+        return view('dashboard.usuario.respondidos', compact('respondidos'));
     }
 }
