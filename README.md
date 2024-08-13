@@ -32,8 +32,7 @@ Antes de utilizar o projeto, certifique-se de que sua máquina possui os seguint
 ## *Instalação*
 
 ### 1. Clonar o repositório
-bash
-git clone https://github.com/GustavoHermogenes/FacilitaSystemTeste.git
+`git clone https://github.com/GustavoHermogenes/FacilitaSystemTeste.git`
 
 
 ### 2. Entrar na pasta do projeto
@@ -41,23 +40,18 @@ git clone https://github.com/GustavoHermogenes/FacilitaSystemTeste.git
 
 
 ### 3. Instalar as dependências do Composer
-bash
-composer install
+`composer install`
 
 
 ### 4. Configurar a conexão com o banco de dados
 Crie um banco de dados no MySQL e configure a conexão no arquivo .env do projeto, conforme as credenciais do seu banco de dados.
 
 ### 5. Executar as migrações
-bash
-php artisan migrate
+`php artisan migrate`
 
 
 ### 6. Executar o servidor de desenvolvimento
-bash
-php artisan serve
-
-
+`php artisan serve
 Agora, você pode acessar a aplicação no seu navegador em http://localhost:8000.
 
 ## *Uso*
