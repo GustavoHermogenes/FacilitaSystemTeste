@@ -37,8 +37,7 @@ git clone https://github.com/GustavoHermogenes/FacilitaSystemTeste.git
 
 
 ### 2. Entrar na pasta do projeto
-bash
-cd FacilitaSystemTeste
+`cd FacilitaSystemTest`
 
 
 ### 3. Instalar as dependências do Composer
